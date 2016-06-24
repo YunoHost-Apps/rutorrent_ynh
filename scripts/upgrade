@@ -1,6 +1,13 @@
 #!/bin/bash
 
+#stop rtorrent service
 sudo service rtorrent stop
+
+# Exit on command errors and treat unset variables as an error
+set -eu
+
+# See comments in install script
+app=$YNH_APP_INSTANCE_NAME
 
 # Build libtorrent
 cd /tmp
@@ -35,4 +42,11 @@ cd /var/www/rutorrent
 sudo git pull
 sudo chown -R www-data:www-data /var/www/rutorrent
 
+# If app is public, add url to SSOWat conf as skipped_uris
+if [[ $is_public -eq 1 ]]; then
+  # See install script
+  ynh_app_setting_set "$app" unprotected_uris "/"
+fi
+
+# Reload nginx service
 sudo service rtorrent start
