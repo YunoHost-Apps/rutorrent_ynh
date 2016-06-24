@@ -18,15 +18,17 @@ Install
 -------
 With the install option from admin panel
 - Find textbox tagged as Install from github
-- Copy and paste: https://github.com/CotzaDev/rutorrent_ynh
+- Copy and paste: https://github.com/yolateng0/rutorrent_ynh
 
-or from command line `sudo yunohost app install https://github.com/CotzaDev/rutorrent_ynh`
+or from command line `sudo yunohost app install https://github.com/yolateng0/rutorrent_ynh`
 
 Upgrade
 ------
-`sudo yunohost app upgrade ruTorrent https://github.com/CotzaDev/rutorrent_ynh`
+`sudo yunohost app upgrade ruTorrent https://github.com/yolateng0/rutorrent_ynh`
 
 Versions
 --------
 
-rtorrent v0.9.6 and libtorrent 0.13.6
+rtorrent v0.9.6 and libtorrent 0.14.7
+https://github.com/rakshasa/rtorrent   http://rtorrent.net/downloads/
+https://github.com/arvidn/libtorrent   https://sourceforge.net/projects/libtorrent/files/libtorrent/libtorrent-0.14.7/
