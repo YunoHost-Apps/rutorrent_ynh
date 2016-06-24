@@ -27,10 +27,10 @@ if [ "$debian_version" = "jessie" ]; then
 
   echo 'deb http://ftp2.fr.debian.org/debian/ jessie main non-free' | sudo tee -a /etc/apt/sources.list.d/rutorrent.list
   echo 'deb-src http://ftp2.fr.debian.org/debian/ jessie main non-free' | sudo tee -a /etc/apt/sources.list.d/rutorrent.list
+  
+  else
   echo 'deb ftp://ftp.deb-multimedia.org jessie main non-free' | sudo tee -a /etc/apt/sources.list.d/rutorrent.list
-else
-  echo 'deb http://ftp2.fr.debian.org/debian/ wheezy main non-free' | sudo tee -a /etc/apt/sources.list.d/rutorrent.list
-  echo 'deb-src http://ftp2.fr.debian.org/debian/ wheezy main non-free' | sudo tee -a /etc/apt/sources.list.d/rutorrent.list
+
 fi
 
 # Install de dependencies
