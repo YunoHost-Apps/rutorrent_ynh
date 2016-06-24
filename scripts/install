@@ -41,6 +41,7 @@ sudo apt-get install -y htop automake libcppunit-dev libtool build-essential pkg
 cd /tmp
 sudo svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
 cd xmlrpc-c/
+sudo git checkout 0.13.6
 sudo ./configure
 sudo make
 sudo make install
@@ -49,6 +50,7 @@ sudo make install
 cd /tmp
 sudo git clone https://github.com/arvidn/libtorrent
 cd libtorrent
+sudo git checkout 0.9.6
 sudo ./autogen.sh
 sudo ./configure
 sudo make
