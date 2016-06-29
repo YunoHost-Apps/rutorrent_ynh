@@ -20,7 +20,7 @@ sudo yunohost service remove rtorrent
 sudo rm -f /etc/apt/sources.list.d/rutorrent.list
 
 # Remove rtorrent
-sudo rm -f /usr/local/bin/rtorrent
+sudo rm -rf /usr/local/bin/rtorrent
 
 sudo yunohost app ssowatconf
 sudo service nginx reload
