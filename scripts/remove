@@ -19,9 +19,6 @@ sudo yunohost service remove rtorrent
 # Remove the sources
 sudo rm -f /etc/apt/sources.list.d/rutorrent.list
 
-#remove dependances
-ynh_package_remove "libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev screen subversion apache2-utils php5-cli php5-geoip unzip unrar rar zip ffmpeg buildtorrent mediainfo"
-
 # Remove rtorrent
 sudo rm -rf /usr/local/bin/rtorrent
 
