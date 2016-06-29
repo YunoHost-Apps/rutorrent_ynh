@@ -21,7 +21,7 @@ fi
 # Install sources
 ynh_package_is_installed "deb-multimedia-keyring"
 
-if ! ynh_package_is_installed "yunohost" ; then
+if ! ynh_package_is_installed "deb-multimedia-keyring" ; then
   echo "Oups, le paquet n'est pas installé."
 else
   echo "Le paquet est installé !"
