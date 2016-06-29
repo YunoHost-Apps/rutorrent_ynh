@@ -29,6 +29,6 @@ Upgrade
 Versions
 --------
 
-rtorrent v0.9.6 and libtorrent 0.14.7
+rtorrent v0.9.6 and libtorrent 1.1.0
 https://github.com/rakshasa/rtorrent   http://rtorrent.net/downloads/
 https://github.com/arvidn/libtorrent   https://sourceforge.net/projects/libtorrent/files/libtorrent/libtorrent-0.14.7/
