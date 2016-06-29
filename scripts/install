@@ -8,6 +8,9 @@ passw=$4
 current_dir=${PWD}
 debian_version=$(lsb_release -c -s)
 
+# Source app helpers
+source /usr/share/yunohost/helpers
+
 # Check domain/path availability
 sudo yunohost app checkurl $domain$path -a rutorrent
 if [[ ! $? -eq 0 ]]; then
@@ -16,6 +19,14 @@ if [[ ! $? -eq 0 ]]; then
 fi
 
 # Install sources
+ynh_package_is_installed "deb-multimedia-keyring"
+
+if ! ynh_package_is_installed "yunohost" ; then
+  echo "Oups, le paquet n'est pas installé."
+else
+  echo "Le paquet est installé !"
+fi
+
 if [ "$debian_version" = "jessie" ]; then
   cd /tmp
   wget http://www.deb-multimedia.org/pool/main/d/deb-multimedia-keyring/deb-multimedia-keyring_2016.3.7_all.deb
@@ -34,8 +45,8 @@ if [ "$debian_version" = "jessie" ]; then
 fi
 
 # Install de dependencies
-sudo apt-get update
-sudo apt-get install -y htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev screen subversion apache2-utils php5-cli php5-geoip unzip unrar rar zip ffmpeg buildtorrent mediainfo
+ynh_package_install "libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev screen subversion apache2-utils php5-cli php5-geoip unzip unrar rar zip ffmpeg buildtorrent mediainfo"
+
 
 # Build xmlrpc
 cd /tmp
