@@ -98,9 +98,6 @@ sudo cp ../sources/plugins/create/conf.php /var/www/rutorrent/plugins/create/con
 sudo rm /var/www/rutorrent/plugins/filemanager/conf.php
 sudo cp ../sources/plugins/filemanager/conf.php /var/www/rutorrent/plugins/filemanager/conf.php
 
-sudo rm /var/www/rutorrent/plugins/mobile/init.js
-sudo cp ../sources/plugins/mobile/init.js /var/www/rutorrent/plugins/mobile/init.js
-
 # Configure nginx
 sudo sed -i "s@PATHTOCHANGE@$path@g" ../sources/nginx/rutorrent.conf
 sudo cp ../sources/nginx/rutorrent.conf /etc/nginx/conf.d/$domain.d/rutorrent.conf
