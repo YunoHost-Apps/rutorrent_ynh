@@ -19,9 +19,9 @@ if [[ ! $? -eq 0 ]]; then
 fi
 
 # Install sources
-ynh_package_is_installed "deb-multimedia-keyring"
+ynh_package_is_installed "rutorrent"
 
-if ! ynh_package_is_installed "deb-multimedia-keyring" ; then
+if ! ynh_package_is_installed "rutorrent" ; then
   echo "Oups, le paquet n'est pas installé."
 else
   echo "Le paquet est installé !"
@@ -38,21 +38,19 @@ if [ "$debian_version" = "jessie" ]; then
 
   echo 'deb http://ftp2.fr.debian.org/debian/ jessie main non-free' | sudo tee -a /etc/apt/sources.list.d/rutorrent.list
   echo 'deb-src http://ftp2.fr.debian.org/debian/ jessie main non-free' | sudo tee -a /etc/apt/sources.list.d/rutorrent.list
-  
-  else
+else
   echo 'deb ftp://ftp.deb-multimedia.org jessie main non-free' | sudo tee -a /etc/apt/sources.list.d/rutorrent.list
 
 fi
 
 # Install de dependencies
-ynh_package_install "libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev screen subversion apache2-utils php5-cli php5-geoip unzip unrar rar zip ffmpeg buildtorrent mediainfo"
-
+sudo apt-get update
+sudo apt-get install -y htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev screen subversion apache2-utils php5-cli php5-geoip unzip unrar rar zip ffmpeg buildtorrent mediainfo
 
 # Build xmlrpc
 cd /tmp
 sudo svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
 cd xmlrpc-c/
-sudo git checkout
 sudo ./configure
 sudo make
 sudo make install
@@ -61,6 +59,7 @@ sudo make install
 cd /tmp
 sudo git clone https://github.com/rakshasa/libtorrent.git
 cd libtorrent
+sudo git checkout 0.13.6
 sudo ./autogen.sh
 sudo ./configure
 sudo make
@@ -70,6 +69,7 @@ sudo make install
 cd /tmp
 sudo git clone https://github.com/rakshasa/rtorrent.git
 cd rtorrent
+sudo git checkout 0.9.6
 sudo ./autogen.sh
 sudo ./configure --with-xmlrpc-c
 sudo make
