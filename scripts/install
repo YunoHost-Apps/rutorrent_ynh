@@ -48,7 +48,7 @@ sudo make install
 
 # Build libtorrent
 cd /tmp
-sudo git clone https://github.com/arvidn/libtorrent
+sudo git clone https://github.com/arvidn/libtorrent.git
 cd libtorrent
 sudo git checkout lastest
 sudo ./autogen.sh
