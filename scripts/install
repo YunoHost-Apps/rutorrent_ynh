@@ -48,9 +48,9 @@ sudo make install
 
 # Build libtorrent
 cd /tmp
-sudo git clone https://github.com/arvidn/libtorrent.git
+sudo git clone https://github.com/rakshasa/libtorrent.git
 cd libtorrent
-sudo git checkout lastest
+sudo git checkout 
 sudo ./autogen.sh
 sudo ./configure
 sudo make
@@ -60,7 +60,7 @@ sudo make install
 cd /tmp
 sudo git clone https://github.com/rakshasa/rtorrent.git
 cd rtorrent
-sudo git checkout 0.9.6
+sudo git checkout 
 sudo ./autogen.sh
 sudo ./configure --with-xmlrpc-c
 sudo make
