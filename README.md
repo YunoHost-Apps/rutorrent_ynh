@@ -1,9 +1,9 @@
 RuTorrent for Yunohost
 ============
 
-Install ruTorrent + rtorrent
+Install ruTorrent + rtorrent + libtorrent
 
-Official website: <http://libtorrent.rakshasa.no/>
+
 
 Info
 ----
