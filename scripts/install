@@ -61,7 +61,6 @@ sudo make install
 cd /tmp
 sudo git clone https://github.com/rakshasa/libtorrent.git
 cd libtorrent
-sudo git checkout 0.13.6
 sudo ./autogen.sh
 sudo ./configure
 sudo make
