@@ -8,6 +8,7 @@ sudo rm -rf /var/www/rutorrent
 sudo rm -rf $data_dir
 sudo rm -f /etc/nginx/conf.d/$domain.d/rutorrent.conf
 sudo rm -f /etc/init.d/rtorrent
+sudo rm -f /etc/init.d/libtorrent
 
 # Remove the user
 sudo userdel -f rtorrent
