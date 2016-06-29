@@ -50,7 +50,7 @@ sudo make install
 cd /tmp
 sudo git clone https://github.com/arvidn/libtorrent/releases/latest
 cd libtorrent
-sudo git checkout 1.1.0
+
 sudo ./autogen.sh
 sudo ./configure
 sudo make
