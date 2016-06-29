@@ -18,6 +18,30 @@ if [[ ! $? -eq 0 ]]; then
   exit 1
 fi
 
+
+# Delete files and db if exit with an error
+EXIT_PROPERLY () {
+    trap ERR    # Disable trap
+    echo -e "\e[91m \e[1m"  # Shell in light red bold
+    echo -e "!!\n  $app install's script has encountered an error. Installation was cancelled.\n!!"
+
+    echo -e "\e[22m"    # Remove bold
+
+    # Clean hosts
+    sudo sed -i '/#leed/d' /etc/hosts
+
+    if [ $ynh_version = "2.2" ]; then
+        /bin/bash ./remove  # Call the script remove. In 2.2, this behavior is not automatic.
+    fi
+    exit 1
+}
+TRAP_ON () {    # Activate signal capture
+    trap EXIT_PROPERLY ERR  # Capturing exit signals on error
+}
+TRAP_OFF () {   # Ignoring signal capture until TRAP_ON
+    trap '' ERR # Ignoring exit signals
+}
+TRAP_ON
 # Install sources
 ynh_package_is_installed "rutorrent"
 
@@ -144,6 +168,9 @@ sudo service nginx reload
 # Save config
 sudo yunohost app setting rutorrent data_dir -v $data_dir
 sudo yunohost app setting rutorrent path -v $path
+
+
+
 
 # Register the service on yunohost
 sudo yunohost service add rtorrent
