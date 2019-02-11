@@ -114,14 +114,6 @@ make
 make install
 
 # Build libtorrent
-#wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/libtorrent-0.13.7.tar.gz
-#tar -xvf libtorrent-0.13.7.tar.gz && rm libtorrent-0.13.7.tar.gz
-#cd libtorrent-0.13.7
-#./autogen.sh
-#./configure
-#make
-#make install
-
 git clone https://github.com/rakshasa/libtorrent.git
 cd libtorrent
 git checkout v0.13.7
@@ -132,11 +124,11 @@ make
 make install
 
 # Build rtorrent
-wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/rtorrent-0.9.7.tar.gz
-tar -xvf rtorrent-0.9.7.tar.gz && rm rtorrent-0.9.7.tar.gz
-cd rtorrent-0.9.7
+git clone https://github.com/rakshasa/rtorrent.git
+cd rtorrent
+git checkout v0.9.7
 ./autogen.sh
-./configure --with-xmlrpc-c --disable-debug
+./configure --with-xmlrpc-c --with-ncurses --disable-debug
 make
 make install
 
