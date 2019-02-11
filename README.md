@@ -1,34 +1,22 @@
-RuTorrent for Yunohost
-============
+# ruTorrent app for YunoHost
+ruTorrent
 
-Install ruTorrent + rtorrent + libtorrent
+- [Yunohost project](https://yunohost.org)
+- [ruTorrent website](https://framalibre.org/content/rutorrent)
+
+![](https://framalibre.org/sites/default/files/styles/thumbnail/public/leslogos/rutorrent-logo.png?itok=xuwyNXFB)
 
 
+[![Install ruTorrent with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=rutorrent)
 
-Info
-----
+### Installing guide
 
-This package install only a shared instance of rutorrent/rtorrent.
+ 1. App can be installed by YunoHost **admin web-interface** or by **running following command**:
 
-(Every user who has access to rutorrent sees all the torrents)
+         $ sudo yunohost app install https://github.com/YunoHost-Apps/rutorrent_ynh
 
-This installer need to compile libtorrent/rutorrent so it can take a while to complete.
+ 
+### Upgrade this package:
 
-Install
--------
-With the install option from admin panel
-- Find textbox tagged as Install from github
-- Copy and paste: https://github.com/yolateng0/rutorrent_ynh
+        $ sudo yunohost app upgrade rutorrent -u https://github.com/YunoHost-Apps/rutorrent_ynh
 
-or from command line `sudo yunohost app install https://github.com/yolateng0/rutorrent_ynh`
-
-Upgrade
-------
-`sudo yunohost app upgrade ruTorrent https://github.com/yolateng0/rutorrent_ynh`
-
-Versions
---------
-
-rtorrent v0.9.6 and libtorrent 1.1.0
-https://github.com/rakshasa/rtorrent   http://rtorrent.net/downloads/
-https://github.com/arvidn/libtorrent   https://sourceforge.net/projects/libtorrent/files/libtorrent/libtorrent-0.14.7/

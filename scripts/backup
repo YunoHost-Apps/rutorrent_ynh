@@ -30,7 +30,4 @@ ynh_backup "/etc/nginx/conf.d/${domain}.d/${app}.conf" "nginx.conf"
 # If a dedicated php-fpm process is used:
 # # Copy PHP-FPM pool configuration
 # ynh_backup "/etc/php5/fpm/pool.d/${app}.conf" "php-fpm.conf"
-### PHP end ###
-
-    Status API Training Shop Blog About 
-
+### PHP end ###

@@ -14,11 +14,11 @@ source /usr/share/yunohost/helpers
 
 # Retrieve old app settings
 domain=$(ynh_app_setting_get "$app" domain)
-path=$(ynh_app_setting_get "$app" path)
+path_url=$(ynh_app_setting_get "$app" path_url)
 
 # Check domain/path availability
-sudo yunohost app checkurl "${domain}${path}" -a "$app" \
-    || ynh_die "Path not available: ${domain}${path}"
+sudo yunohost app checkurl "${domain}${path_url}" -a "$app" \
+    || ynh_die "Path not available: ${domain}${path_url}"
 
 # Restore sources & data
 src_path="/var/www/${app}"
@@ -46,7 +46,7 @@ sudo cp -a ./nginx.conf "/etc/nginx/conf.d/${domain}.d/${app}.conf"
 # # Copy PHP-FPM pool configuration and reload the service
 # sudo cp -a ./php-fpm.conf "/etc/php5/fpm/pool.d/${app}.conf"
 # sudo service php5-fpm reload
-### PHP end ###
+### PHP end ###
 
 # Restart webserver
 sudo service nginx reload
