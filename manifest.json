@@ -6,7 +6,7 @@
         "en": "ruTorrent package for YunoHost.",
         "fr": "ruTorrent pour YunoHost."
     },
-    "version": "0.13.7",
+    "version": "0.9.7",
     "url": "https://github.com/rakshasa/libtorrent",
     "license": "free",
     "maintainer": {

@@ -1,6 +1,8 @@
 # ruTorrent app for YunoHost
 ruTorrent
 
+NOT WORK IS IN DEV
+
 - [Yunohost project](https://yunohost.org)
 - [ruTorrent website](https://framalibre.org/content/rutorrent)
 

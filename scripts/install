@@ -93,6 +93,8 @@ ynh_setup_source "$final_path"
 # INSTALL EMBY
 #==============================================
 
+wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/libtorrent-0.13.7.tar.gz
+wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/rtorrent-0.9.7.tar.gz
 dpkg --install  $final_path/emby-server-deb*
 
 #=================================================
