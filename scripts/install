@@ -116,37 +116,34 @@ ynh_setup_source "$final_path"
 
 ## 2 TEST ##
 # Build xmlrpc
-#cd /tmp
-#svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-#cd xmlrpc-c/
-#./configure
-#make
-#make install
+svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
+cd xmlrpc-c/
+./configure
+make
+make install
 
 # Build libtorrent
-#cd /tmp
-#git clone https://github.com/rakshasa/libtorrent.git
-#cd libtorrent
-#git checkout 0.13.7
-#./autogen.sh
-#./configure
-#make
-#make install
+git clone https://github.com/rakshasa/libtorrent.git
+cd libtorrent
+git checkout 0.13.7
+./autogen.sh
+./configure
+make
+make install
 
 # Build rtorrent
-#cd /tmp
-#git clone https://github.com/rakshasa/rtorrent.git
-#cd rtorrent
-#git checkout 0.9.7
-#./autogen.sh
-#./configure --with-xmlrpc-c
-#make
-#make install
+git clone https://github.com/rakshasa/rtorrent.git
+cd rtorrent
+git checkout 0.9.7
+./autogen.sh
+./configure --with-xmlrpc-c
+make
+make install
 
-#ldconfig
+ldconfig
 
 # Install rutorrent
-#git clone https://github.com/Novik/ruTorrent.git $final_path
+git clone https://github.com/Novik/ruTorrent.git $final_path
 
 ## 3 Test ##
 
@@ -198,7 +195,7 @@ ynh_system_user_create $app
 ### that really need such authorization.
 
 # Set permissions to app files
-#chown -R root: /etc/loolwsd
+chown -R chown -R www-data:www-data $final_path
 
 
 #=================================================
@@ -212,4 +209,6 @@ if [ $is_public -eq 1 ]; then
 fi
 
 # Reload services
+systemctl enable rtorrent
+systemctl start rtorrent
 systemctl reload nginx
