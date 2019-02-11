@@ -74,11 +74,12 @@ ynh_app_setting_set $app is_public $is_public
 #ynh_package_install ca-certificates apt-transport-https
 #wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 #echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
-echo 'deb http://ftp2.fr.debian.org/debian/ stretch main non-free' | tee /etc/apt/sources.list.d/rutorrent.list
+#echo 'deb http://ftp2.fr.debian.org/debian/ stretch main non-free' | tee /etc/apt/sources.list.d/rutorrent.list
+echo 'deb http://ftp.br.debian.org/debian/ stretch main' | tee /etc/apt/sources.list.d/rutorrent.list
 
 ynh_package_update
 #ynh_package_install htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim screen subversion apache2-utils php7.2 php7.2-cli php7.2-fpm php7.2-curl php7.2-geoip php7.2-xml php7.2-mbstring git unzip unrar rar zip ffmpeg mktorrent mediainfo zlib1g-dev sox libsox-fmt-mp3 libsox-fmt-all gawk
-ynh_package_install htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim screen subversion apache2-utils unzip unrar rar zip ffmpeg mktorrent mediainfo zlib1g-dev sox libsox-fmt-mp3 libsox-fmt-all gawk
+#ynh_package_install htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim screen subversion apache2-utils unzip unrar rar zip ffmpeg mktorrent mediainfo zlib1g-dev sox libsox-fmt-mp3 libsox-fmt-all gawk
 
 ## Start php7
 #systemctl enable php7.0-fpm
@@ -105,31 +106,33 @@ ynh_app_setting_set $app port $port
 
 ## 2 TEST ##
 # Build xmlrpc
-svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-cd xmlrpc-c/
-./configure
-make
-make install
+#svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
+#cd xmlrpc-c/
+#./configure
+#make
+#make install
 
 # Build libtorrent
-wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/libtorrent-0.13.7.tar.gz
-tar -xvf libtorrent-0.13.7.tar.gz && rm libtorrent-0.13.7.tar.gz
-cd libtorrent-0.13.7
-./autogen.sh
-./configure
-make
-make install
+#wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/libtorrent-0.13.7.tar.gz
+#tar -xvf libtorrent-0.13.7.tar.gz && rm libtorrent-0.13.7.tar.gz
+#cd libtorrent-0.13.7
+#./autogen.sh
+#./configure
+#make
+#make install
 
 # Build rtorrent
-wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/rtorrent-0.9.7.tar.gz
-tar -xvf rtorrent-0.9.7.tar.gz && rm rtorrent-0.9.7.tar.gz
-cd rtorrent-0.9.7
-./autogen.sh
-./configure --with-xmlrpc-c
-make
-make install
+#wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/rtorrent-0.9.7.tar.gz
+#tar -xvf rtorrent-0.9.7.tar.gz && rm rtorrent-0.9.7.tar.gz
+#cd rtorrent-0.9.7
+#./autogen.sh
+#./configure --with-xmlrpc-c
+#make
+#make install
 
-ldconfig
+#ldconfig
+
+ynh_package_install rtorrent
 
 # Install rutorrent
 git clone https://github.com/Novik/ruTorrent.git $final_path
