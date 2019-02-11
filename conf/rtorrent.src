@@ -1,7 +1,7 @@
-SOURCE_URL=https://github.com/Novik/ruTorrent/archive/441dc94dee8cb5dd8f092c338f7f94e2ae633426.zip
-SOURCE_SUM=dff8b5b789c2d14c5546f463f517cf1d5eb6f8bb60033029abf55f17a54a97adf6fcfb6737e4af3110ede46844e07f65c6f15a806bcb770b9b1d16e0675c189a
+SOURCE_URL=https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/rtorrent-0.9.7.tar.gz
+SOURCE_SUM=e663bd8984bcec91868beaf16d215708bdea8872338365ba6a05c9ea830b2aff045257bbc8bd0414d84009ee85852822c97bb073dfb41c21e3b0081ecaeecc00
 SOURCE_SUM_PRG=sha512sum
-SOURCE_FORMAT=zip
+SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
 SOURCE_EXTRACT=true
-SOURCE_FILENAME=rutorrent.zip
+SOURCE_FILENAME=rtorrent.tar.gz
