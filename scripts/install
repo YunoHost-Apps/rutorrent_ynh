@@ -138,8 +138,8 @@ ynh_package_install rtorrent
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-ynh_app_setting_set $app final_path $final_path
-# Download, check integrity, uncompress and patch the source from app.src
+ynh_app_setting_set $rutorrent final_path $final_path
+# Download, check integrity, uncompress and patch the source from rutorrent.src
 ynh_setup_source "$final_path"
 
 #=================================================
