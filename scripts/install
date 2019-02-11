@@ -74,6 +74,7 @@ ynh_app_setting_set $app is_public $is_public
 #ynh_package_install ca-certificates apt-transport-https
 #wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 #echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
+echo 'deb ftp://ftp.deb-multimedia.org stretch main non-free' | tee /etc/apt/sources.list.d/rutorrent.list
 
 ynh_package_update
 #ynh_package_install htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim screen subversion apache2-utils php7.2 php7.2-cli php7.2-fpm php7.2-curl php7.2-geoip php7.2-xml php7.2-mbstring git unzip unrar rar zip ffmpeg mktorrent mediainfo zlib1g-dev sox libsox-fmt-mp3 libsox-fmt-all gawk
