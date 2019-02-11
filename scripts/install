@@ -47,7 +47,7 @@ app=$YNH_APP_INSTANCE_NAME
 
 ### If the app uses nginx as web server (written in HTML/PHP in most cases), the final path should be "/var/www/$app".
 ### If the app provides an internal web server (or uses another application server such as uwsgi), the final path should be "/opt/yunohost/$app"
-final_path=/opt/yunohost/$app
+final_path=/var/www/$app
 test ! -e "$final_path" || ynh_die "This path already contains a folder"
 
 # Normalize the url path syntax
@@ -66,6 +66,23 @@ ynh_app_setting_set $app domain $domain
 ynh_app_setting_set $app path $path_url
 ynh_app_setting_set $app is_public $is_public
 
+#==============================================
+# INSTALL DEPS
+#==============================================
+
+## Install the PHP 7.2 repo for debian
+#ynh_package_install ca-certificates apt-transport-https
+#wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
+#echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
+
+ynh_package_update
+#ynh_package_install htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim screen subversion apache2-utils php7.2 php7.2-cli php7.2-fpm php7.2-curl php7.2-geoip php7.2-xml php7.2-mbstring git unzip unrar rar zip ffmpeg mktorrent mediainfo zlib1g-dev sox libsox-fmt-mp3 libsox-fmt-all gawk
+ynh_package_install htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim screen subversion apache2-utils unzip unrar rar zip ffmpeg mktorrent mediainfo zlib1g-dev sox libsox-fmt-mp3 libsox-fmt-all gawk
+
+## Start php7
+#systemctl enable php7.0-fpm
+#systemctl start php7.0-fpm
+
 #=================================================
 # FIND AND OPEN A PORT
 #=================================================
@@ -76,7 +93,7 @@ ynh_app_setting_set $app is_public $is_public
 ###		- Remove the section "CLOSE A PORT" in the remove script
 
 # Find a free port
-port=$(ynh_find_port 8096)
+port=$(ynh_find_port 45069)
 # Open this port
 yunohost firewall allow --no-upnp TCP $port 2>&1
 ynh_app_setting_set $app port $port
@@ -90,12 +107,52 @@ ynh_app_setting_set $app final_path $final_path
 ynh_setup_source "$final_path"
 
 #==============================================
-# INSTALL EMBY
+# INSTALL RUTORRENT
 #==============================================
 
-wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/libtorrent-0.13.7.tar.gz
-wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/rtorrent-0.9.7.tar.gz
-dpkg --install  $final_path/emby-server-deb*
+## 1 TEST ##
+#wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/libtorrent-0.13.7.tar.gz
+#wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/rtorrent-0.9.7.tar.gz
+
+## 2 TEST ##
+# Build xmlrpc
+#cd /tmp
+#svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
+#cd xmlrpc-c/
+#./configure
+#make
+#make install
+
+# Build libtorrent
+#cd /tmp
+#git clone https://github.com/rakshasa/libtorrent.git
+#cd libtorrent
+#git checkout 0.13.7
+#./autogen.sh
+#./configure
+#make
+#make install
+
+# Build rtorrent
+#cd /tmp
+#git clone https://github.com/rakshasa/rtorrent.git
+#cd rtorrent
+#git checkout 0.9.7
+#./autogen.sh
+#./configure --with-xmlrpc-c
+#make
+#make install
+
+#ldconfig
+
+# Install rutorrent
+#git clone https://github.com/Novik/ruTorrent.git $final_path
+
+## 3 Test ##
+
+#wget http://ftp.br.debian.org/debian/pool/main/r/rtorrent/rtorrent_0.9.6-2+b1_amd64.deb
+#wget http://ftp.br.debian.org/debian/pool/main/libt/libtorrent/libtorrent19_0.13.6-1.1_amd64.deb
+#wget http://ftp.br.debian.org/debian/pool/main/x/xmlrpc-c/libxmlrpc-core-c3_1.33.14-4_amd64.deb
 
 #=================================================
 # NGINX CONFIGURATION
