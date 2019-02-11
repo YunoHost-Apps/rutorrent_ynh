@@ -134,14 +134,13 @@ ynh_app_setting_set $app port $port
 
 ynh_package_install rtorrent
 
-# Install rutorrent
-git clone https://github.com/Novik/ruTorrent.git $final_path
+#=================================================
+# DOWNLOAD, CHECK AND UNPACK SOURCE
+#=================================================
 
-## 3 Test ##
-
-#wget http://ftp.br.debian.org/debian/pool/main/r/rtorrent/rtorrent_0.9.6-2+b1_amd64.deb
-#wget http://ftp.br.debian.org/debian/pool/main/libt/libtorrent/libtorrent19_0.13.6-1.1_amd64.deb
-#wget http://ftp.br.debian.org/debian/pool/main/x/xmlrpc-c/libxmlrpc-core-c3_1.33.14-4_amd64.deb
+ynh_app_setting_set $app final_path $final_path
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source "$final_path"
 
 #=================================================
 # NGINX CONFIGURATION
