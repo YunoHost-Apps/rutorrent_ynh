@@ -99,21 +99,9 @@ port=$(ynh_find_port 45069)
 yunohost firewall allow --no-upnp TCP $port 2>&1
 ynh_app_setting_set $app port $port
 
-#=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
-#=================================================
-
-ynh_app_setting_set $app final_path $final_path
-# Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source "$final_path"
-
 #==============================================
 # INSTALL RUTORRENT
 #==============================================
-
-## 1 TEST ##
-#wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/libtorrent-0.13.7.tar.gz
-#wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/rtorrent-0.9.7.tar.gz
 
 ## 2 TEST ##
 # Build xmlrpc
@@ -124,18 +112,16 @@ make
 make install
 
 # Build libtorrent
-git clone https://github.com/rakshasa/libtorrent.git
-cd libtorrent
-git checkout 0.13.7
+wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/libtorrent-0.13.7.tar.gz
+cd libtorrent-0.13.7
 ./autogen.sh
 ./configure
 make
 make install
 
 # Build rtorrent
-git clone https://github.com/rakshasa/rtorrent.git
-cd rtorrent
-git checkout 0.9.7
+wget https://github.com/rakshasa/rtorrent/releases/download/v0.9.7/rtorrent-0.9.7.tar.gz
+cd rtorrent-0.9.7
 ./autogen.sh
 ./configure --with-xmlrpc-c
 make
