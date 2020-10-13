@@ -1,12 +1,12 @@
-# ruTorrent app for YunoHost
-ruTorrent
+# ruTorrent for YunoHost
+
+[![Integration level](https://dash.yunohost.org/integration/rutorrent.svg)](https://dash.yunohost.org/appci/app/rutorrent) ![](https://ci-apps.yunohost.org/ci/badges/rutorrent.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/rutorrent.maintain.svg)  
+[![Install rutorrent with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=rutorrent)
 
 NOT WORK IS IN DEV
 
 - [Yunohost project](https://yunohost.org)
 - [ruTorrent website](https://framalibre.org/content/rutorrent)
-
-![](https://framalibre.org/sites/default/files/styles/thumbnail/public/leslogos/rutorrent-logo.png?itok=xuwyNXFB)
 
 
 [![Install ruTorrent with YunoHost](https://install-app.yunohost.org/install-with-yunohost.png)](https://install-app.yunohost.org/?app=rutorrent)
