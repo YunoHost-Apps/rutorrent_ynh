@@ -13,7 +13,7 @@ maintainers = ["eric_G"]
 
 [upstream]
 license = "GPLv3.0"
-admindoc = "https://doc.yunohost.org/dev/packaging/"
+admindoc = "https://github.com/Novik/ruTorrent/wiki/WebSERVER"
 code = "https://github.com/Novik/ruTorrent"
 
 [integration]
