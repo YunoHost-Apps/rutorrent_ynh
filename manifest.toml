@@ -48,7 +48,6 @@ ram.runtime = "50M"
     [resources.sources.main]
     url = "https://github.com/Novik/ruTorrent/archive/refs/tags/v5.3.5.tar.gz"
     sha256 = "756175c329a663c4ddf951cd77a2ead7db6edf260f9227da2b3522d362c3e1c7"
-
     autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
