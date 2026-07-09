@@ -1,205 +1,49 @@
 #!/bin/bash
 
 #=================================================
-# GENERIC START
-#=================================================
 # IMPORT GENERIC HELPERS
 #=================================================
 
-source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# MANAGE SCRIPT FAILURE
+# INITIALIZE AND STORE SETTINGS
 #=================================================
 
-ynh_clean_setup () {
-	### Remove this function if there's nothing to clean before calling the remove script.
-	true
-}
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
-
-#=================================================
-# RETRIEVE ARGUMENTS FROM THE MANIFEST
-#=================================================
-
-# Retrieve arguments
-domain=$YNH_APP_ARG_DOMAIN
-path_url=$YNH_APP_ARG_PATH
-is_public=$YNH_APP_ARG_IS_PUBLIC
-
-### If it's a multi-instance app, meaning it can be installed several times independently
-### The id of the app as stated in the manifest is available as $YNH_APP_ID
-### The instance number is available as $YNH_APP_INSTANCE_NUMBER (equals "1", "2", ...)
-### The app instance name is available as $YNH_APP_INSTANCE_NAME
-###    - the first time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample
-###    - the second time the app is installed, YNH_APP_INSTANCE_NAME = ynhexample__2
-###    - ynhexample__{N} for the subsequent installations, with N=3,4, ...
-### The app instance name is probably what interests you most, since this is
-### guaranteed to be unique. This is a good unique identifier to define installation path,
-### db names, ...
-app=$YNH_APP_INSTANCE_NAME
-
-#=================================================
-# CHECK IF THE APP CAN BE INSTALLED WITH THESE ARGS
-#=================================================
-
-### If the app uses nginx as web server (written in HTML/PHP in most cases), the final path should be "/var/www/$app".
-### If the app provides an internal web server (or uses another application server such as uwsgi), the final path should be "/opt/yunohost/$app"
-final_path=/var/www/$app
-test ! -e "$final_path" || ynh_die "This path already contains a folder"
-
-# Normalize the url path syntax
-path_url=$(ynh_normalize_url_path $path_url)
-
-# Check web path availability
-ynh_webpath_available $domain $path_url
-# Register (book) web path
-ynh_webpath_register $app $domain $path_url
-
-#=================================================
-# STORE SETTINGS FROM MANIFEST
-#=================================================
-
-ynh_app_setting_set $app domain $domain
-ynh_app_setting_set $app path $path_url
-ynh_app_setting_set $app is_public $is_public
-
-#==============================================
-# INSTALL DEPS
-#==============================================
-
-## Install the PHP 7.2 repo for debian
-#ynh_package_install ca-certificates apt-transport-https
-#wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
-#echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
-
-echo 'deb http://ftp2.fr.debian.org/debian/ stretch main non-free' | tee /etc/apt/sources.list.d/rutorrent.list
-#echo 'deb http://ftp.br.debian.org/debian/ stretch main' | tee /etc/apt/sources.list.d/rutorrent.list
-
-ynh_package_update
-ynh_package_install htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev screen subversion apache2-utils php-cli php-geoip unzip unrar rar zip ffmpeg buildtorrent mediainfo zlib1g-dev
-#ynh_package_install htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim screen subversion apache2-utils php7.2 php7.2-cli php7.2-fpm php7.2-curl php7.2-geoip php7.2-xml php7.2-mbstring git unzip unrar rar zip ffmpeg mktorrent mediainfo zlib1g-dev sox libsox-fmt-mp3 libsox-fmt-all gawk
-#ynh_package_install htop automake libcppunit-dev libtool build-essential pkg-config libssl-dev libcurl4-openssl-dev libsigc++-2.0-dev libncurses5-dev vim screen subversion apache2-utils unzip unrar rar zip ffmpeg mktorrent mediainfo zlib1g-dev sox libsox-fmt-mp3 libsox-fmt-all gawk
-
-## Start php7
-#systemctl enable php7.0-fpm
-#systemctl start php7.0-fpm
-
-#=================================================
-# FIND AND OPEN A PORT
-#=================================================
-
-### Use these lines if you have to open a port for the application
-### `ynh_find_port` will find the first available port starting from the given port.
-### If you're not using these lines:
-###		- Remove the section "CLOSE A PORT" in the remove script
-
-# Find a free port
-port=$(ynh_find_port 45069)
-# Open this port
-yunohost firewall allow --no-upnp TCP $port 2>&1
-ynh_app_setting_set $app port $port
-
-#==============================================
-# INSTALL RUTORRENT
-#==============================================
-
-# Build xmlrpc
-svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
-cd xmlrpc-c/
-./configure
-make
-make install
-
-# Build libtorrent
-git clone https://github.com/rakshasa/libtorrent.git
-cd libtorrent
-git checkout v0.13.7
-git cherry-pick 7b29b6b
-./autogen.sh
-./configure --disable-debug
-make
-make install
-
-# Build rtorrent
-git clone https://github.com/rakshasa/rtorrent.git
-cd rtorrent
-git checkout v0.9.7
-./autogen.sh
-./configure --with-xmlrpc-c --with-ncurses --disable-debug
-make
-make install
-
-ldconfig
+ynh_app_setting_set --key=php_upload_max_filesize --value=50M
+ynh_app_setting_set --key=php_post_max_size --value=50M
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
+ynh_script_progression "Setting up source files..."
 
-ynh_app_setting_set $rutorrent final_path $final_path
-# Download, check integrity, uncompress and patch the source from rutorrent.src
-ynh_setup_source "$final_path"
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-
-# Create a dedicated nginx config
-ynh_add_nginx_config
+# Download, check integrity, uncompress and patch the source from manifest.toml
+ynh_setup_source --dest_dir="$install_dir"
 
 #=================================================
-# CREATE DEDICATED USER
+# APP INITIAL CONFIGURATION
 #=================================================
+#ynh_script_progression "Adding $app's configuration files..."
 
-# Create a system user
-ynh_system_user_create $app
+#ynh_config_add --template="some_config_file" --destination="$install_dir/some_config_file"
 
-#=================================================
-# MODIFY A CONFIG FILE
-#=================================================
-#cp -a ../conf/onlyoffice-documentserver.conf /etc/onlyoffice/documentserver/nginx/onlyoffice-documentserver.conf
-#ynh_replace_string "__NEXTCLOUDDOMAIN__" "$nextcloud_domain" "/etc/loolwsd/loolwsd.xml"
-#ynh_replace_string "__PASSWORD__" "$password" "/etc/loolwsd/loolwsd.xml"
+#chmod 400 "$install_dir/some_config_file"
+#chown "$app:$app" "$install_dir/some_config_file"
 
 #=================================================
-# STORE THE CONFIG FILE CHECKSUM
+# SYSTEM CONFIGURATION
 #=================================================
+ynh_script_progression "Adding system configurations related to $app..."
 
-### `ynh_store_file_checksum` is used to store the checksum of a file.
-### That way, during the upgrade script, by using `ynh_backup_if_checksum_is_different`,
-### you can make a backup of this file before modifying it again if the admin had modified it.
+# Create a PHP-FPM config (with conf/extra_php-fpm.conf being appended to it)
+ynh_config_add_phpfpm
 
-# Calculate and store the config file checksum into the app settings
-#ynh_store_file_checksum "/etc/onlyoffice/documentserver/nginx/onlyoffice-documentserver.conf"
-
-
-#=================================================
-# GENERIC FINALIZATION
-#=================================================
-# SECURE FILES AND DIRECTORIES
-#=================================================
-
-### For security reason, any app should set the permissions to root: before anything else.
-### Then, if write authorization is needed, any access should be given only to directories
-### that really need such authorization.
-
-# Set permissions to app files
-chown -R www-data:www-data $final_path
-rm /etc/apt/sources.list.d/rutorrent.list
+# Create a dedicated NGINX config using the conf/nginx.conf template
+ynh_config_add_nginx
 
 #=================================================
-# SETUP SSOWAT
+# END OF SCRIPT
 #=================================================
 
-# If app is public, add url to SSOWat conf as skipped_uris
-if [ $is_public -eq 1 ]; then
-  # unprotected_uris allows SSO credentials to be passed anyway.
-  ynh_app_setting_set "$app" unprotected_uris "/"
-fi
-
-# Reload services
-#systemctl enable rtorrent
-#systemctl start rtorrent
-systemctl reload nginx
+ynh_script_progression "Installation of $app completed"
