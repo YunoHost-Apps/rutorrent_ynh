@@ -12,7 +12,7 @@ version = "5.3.5~ynh1"
 maintainers = ["eric_G"]
 
 [upstream]
-license = "GPLv3.0"
+license = "GPL-3.0-only"
 admindoc = "https://github.com/Novik/ruTorrent/wiki/WebSERVER"
 code = "https://github.com/Novik/ruTorrent"
 
