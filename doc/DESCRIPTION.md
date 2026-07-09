@@ -1,1 +1,1 @@
-This is a dummy description of this app features
+ruTorrent is a front-end for the popular Bittorrent client rtorrent.

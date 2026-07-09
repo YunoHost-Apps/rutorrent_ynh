@@ -1,1 +1,1 @@
-Ceci est une fausse description des fonctionalités de l'app
+ruTorrent est une interface utilisateur pour le célèbre client BitTorrent rtorrent.
