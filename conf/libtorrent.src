@@ -1,7 +1,0 @@
-SOURCE_URL=https://github.com/Novik/ruTorrent/archive/refs/tags/v3.10.zip
-SOURCE_SUM=9ea6592ca914e000f690ca0a5e176b001679156b0075b0389388b4afcfea2784
-SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=zip
-SOURCE_IN_SUBDIR=true
-SOURCE_EXTRACT=true
-SOURCE_FILENAME=rutorrent.zip
