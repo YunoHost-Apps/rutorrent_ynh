@@ -7,7 +7,7 @@ name = "ruTorrent"
 description.en = "Web front-end for rTorrent"
 description.fr = "Interface web frontale pour rTorrent"
 
-version = "5.3.12~ynh1"
+version = "5.3.14~ynh1"
 
 maintainers = ["eric_G"]
 
@@ -42,8 +42,8 @@ ram.runtime = "50M"
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/Novik/ruTorrent/archive/refs/tags/v5.3.12.tar.gz"
-    sha256 = "1f511360446abdc1971abe79054e574be16bad853c2f0a9e88361e6055468d9c"
+    url = "https://github.com/Novik/ruTorrent/archive/refs/tags/v5.3.14.tar.gz"
+    sha256 = "1ae5ffd08fcefd2c45c7669afba61702a2859f1b10b64a82f546e7a7f00c2640"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
